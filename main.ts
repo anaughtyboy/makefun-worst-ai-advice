@@ -37,6 +37,11 @@ function main(): void {
   // Read the bytes back and confirm they are the line, nothing more.
   const back = readFileSync(outPath);
   const expected = Buffer.from(ADVICE, "utf8");
+  if (back.length !== expected.length) {
+    throw new Error(
+      `Output is ${back.length} bytes, expected ${expected.length}.`,
+    );
+  }
   if (!back.equals(expected)) {
     throw new Error("Read-back bytes do not match the advice line.");
   }
